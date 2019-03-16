@@ -1,5 +1,6 @@
 import React from 'react';
 // import * as BooksAPI from './BooksAPI'
+import Header from './Header.js';
 import './App.css';
 
 class BooksApp extends React.Component {
@@ -20,7 +21,11 @@ class BooksApp extends React.Component {
                 {showSearchPage ? (
                     <div className="search-books">
                         <div className="search-books-bar">
-                            <button className="close-search" onClick={() => this.setState({ showSearchPage: false })}>
+                            <button
+                                type="button"
+                                className="close-search"
+                                onClick={() => this.setState({ showSearchPage: false })}
+                            >
                                 Close
                             </button>
                             <div className="search-books-input-wrapper">
@@ -41,9 +46,7 @@ class BooksApp extends React.Component {
                     </div>
                 ) : (
                     <div className="list-books">
-                        <div className="list-books-title">
-                            <h1>MyReads</h1>
-                        </div>
+                        <Header />
                         <div className="list-books-content">
                             <div>
                                 <div className="bookshelf">
@@ -282,7 +285,9 @@ class BooksApp extends React.Component {
                             </div>
                         </div>
                         <div className="open-search">
-                            <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
+                            <button type="submit" onClick={() => this.setState({ showSearchPage: true })}>
+                                Add a book
+                            </button>
                         </div>
                     </div>
                 )}

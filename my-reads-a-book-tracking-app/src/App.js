@@ -1,6 +1,7 @@
 import React from 'react';
 // import * as BooksAPI from './BooksAPI'
 import Header from './Header.js';
+import AddBookButton from './AddBook';
 import './App.css';
 
 class BooksApp extends React.Component {
@@ -12,6 +13,12 @@ class BooksApp extends React.Component {
          * pages, as well as provide a good URL they can bookmark and share.
          */
         showSearchPage: false,
+    };
+
+    addBook = () => {
+        this.setState({
+            showSearchPage: true,
+        });
     };
 
     render() {
@@ -284,11 +291,7 @@ class BooksApp extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="open-search">
-                            <button type="submit" onClick={() => this.setState({ showSearchPage: true })}>
-                                Add a book
-                            </button>
-                        </div>
+                        <AddBookButton goToSearch={this.addBook} />
                     </div>
                 )}
             </div>

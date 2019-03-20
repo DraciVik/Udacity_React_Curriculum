@@ -7,6 +7,7 @@ import './App.css';
 import CurrentlyReadingComponent from './CurrentlyReading.js';
 import WantToReadComponent from './WantToRead.js';
 import ReadComponent from './Read';
+import * as BookAPI from './BooksAPI';
 
 class BooksApp extends React.Component {
     state = {
@@ -19,10 +20,21 @@ class BooksApp extends React.Component {
         showSearchPage: false,
     };
 
+    componentDidMount() {
+        BookAPI.getAll().then(books => {
+            this.setState({ books });
+        });
+    }
+
     handleMainPage = () => {
         this.setState(prevState => ({
             showSearchPage: !prevState.showSearchPage,
         }));
+    };
+
+    currentlyReading = () => {
+        const { books } = this.state;
+        const shelfBooks = books.filter(book => book.shelf === 'currentlyReading');
     };
 
     render() {

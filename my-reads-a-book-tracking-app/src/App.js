@@ -22,7 +22,11 @@ class BooksApp extends React.Component {
 
     componentDidMount() {
         BookAPI.getAll().then(books => {
-            this.setState({ books });
+            this.setState({
+                currentlyReading: books.filter(book => book.shelf === 'currentlyReading'),
+                wantToRead: books.filter(book => book.shelf === 'wantToRead'),
+                read: books.filter(book => book.shelf === 'read'),
+            });
         });
     }
 
@@ -32,13 +36,11 @@ class BooksApp extends React.Component {
         }));
     };
 
-    currentlyReading = () => {
-        const { books } = this.state;
-        const shelfBooks = books.filter(book => book.shelf === 'currentlyReading');
-    };
-
     render() {
         const { showSearchPage } = this.state;
+        const { currentlyReading } = this.state;
+        const { wantToRead } = this.state;
+        const { read } = this.state;
         return (
             <div className="app">
                 {showSearchPage ? (
@@ -48,9 +50,9 @@ class BooksApp extends React.Component {
                         <Header />
                         <div className="list-books-content">
                             <div>
-                                <CurrentlyReadingComponent />
-                                <WantToReadComponent />
-                                <ReadComponent />
+                                <CurrentlyReadingComponent currentlyReading={currentlyReading} />
+                                <WantToReadComponent wantToRead={wantToRead} />
+                                <ReadComponent read={read} />
                             </div>
                         </div>
                         <AddBookButton goToSearch={this.handleMainPage} />

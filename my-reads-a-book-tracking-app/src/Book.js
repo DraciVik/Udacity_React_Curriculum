@@ -2,7 +2,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import BookShelfChanger from './BookShelfChanger';
 
-const Book = ({ image, title, author }) => (
+const Book = ({ book, image, title, author, changeShelf }) => (
     <div className="book">
         <div className="book-top">
             <div
@@ -13,16 +13,18 @@ const Book = ({ image, title, author }) => (
                     backgroundImage: `url(${image})`,
                 }}
             />
-            <BookShelfChanger />
+            <BookShelfChanger book={book} changeShelf={changeShelf} />
         </div>
         <div className="book-title">{title}</div>
         <div className="book-authors">{author}</div>
     </div>
 );
 Book.propTypes = {
+    book: PropTypes.object,
     image: PropTypes.string,
     title: PropTypes.string,
     author: PropTypes.string,
+    changeShelf: PropTypes.func,
 };
 
 export default Book;

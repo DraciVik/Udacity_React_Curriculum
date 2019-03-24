@@ -2,7 +2,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import Book from './Book';
 
-const ReadComponent = ({ read }) => (
+const ReadComponent = ({ read, changeShelf }) => (
     <div className="bookshelf">
         <h2 className="bookshelf-title">Read</h2>
         <div className="bookshelf-books">
@@ -10,7 +10,13 @@ const ReadComponent = ({ read }) => (
             <ol className="books-grid">
                 {read.map(book => (
                     <li key={book.id}>
-                        <Book title={book.title} image={book.imageLinks.thumbnail} author={book.author} />
+                        <Book
+                            book={book}
+                            changeShelf={changeShelf}
+                            title={book.title}
+                            author={book.authors[0]}
+                            image={book.imageLinks.thumbnail}
+                        />
                     </li>
                 ))}
             </ol>
@@ -19,7 +25,8 @@ const ReadComponent = ({ read }) => (
 );
 
 ReadComponent.propTypes = {
-    read: PropTypes.array,
+    read: PropTypes.arrayOf(PropTypes.object).isRequired,
+    changeShelf: PropTypes.func.isRequired,
 };
 
 export default ReadComponent;

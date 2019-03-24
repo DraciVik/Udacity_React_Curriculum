@@ -2,7 +2,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import Book from './Book';
 
-const WantToReadComponent = ({ wantToRead }) => (
+const WantToReadComponent = ({ wantToRead, changeShelf }) => (
     <div className="bookshelf">
         <h2 className="bookshelf-title">Want to Read</h2>
         <div className="bookshelf-books">
@@ -10,7 +10,13 @@ const WantToReadComponent = ({ wantToRead }) => (
             <ol className="books-grid">
                 {wantToRead.map(book => (
                     <li key={book.id}>
-                        <Book title={book.title} image={book.imageLinks.thumbnail} author={book.authors[0]} />
+                        <Book
+                            book={book}
+                            changeShelf={changeShelf}
+                            title={book.title}
+                            author={book.authors[0]}
+                            image={book.imageLinks.thumbnail}
+                        />
                     </li>
                 ))}
             </ol>
@@ -19,7 +25,8 @@ const WantToReadComponent = ({ wantToRead }) => (
 );
 
 WantToReadComponent.propTypes = {
-    wantToRead: PropTypes.array.isRequired,
+    wantToRead: PropTypes.arrayOf(PropTypes.object).isRequired,
+    changeShelf: PropTypes.func.isRequired,
 };
 
 export default WantToReadComponent;

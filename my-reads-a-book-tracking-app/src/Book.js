@@ -1,7 +1,8 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 import BookShelfChanger from './BookShelfChanger';
 
-const Book = () => (
+const Book = ({ image, title, author }) => (
     <div className="book">
         <div className="book-top">
             <div
@@ -9,15 +10,17 @@ const Book = () => (
                 style={{
                     width: 128,
                     height: 192,
-                    backgroundImage:
-                        'url("http://books.google.com/books/content?id=wrOQLV6xB-wC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72G3gA5A-Ka8XjOZGDFLAoUeMQBqZ9y-LCspZ2dzJTugcOcJ4C7FP0tDA8s1h9f480ISXuvYhA_ZpdvRArUL-mZyD4WW7CHyEqHYq9D3kGnrZCNiqxSRhry8TiFDCMWP61ujflB&source=gbs_api")',
+                    backgroundImage: `url(${image})`,
                 }}
             />
             <BookShelfChanger />
         </div>
-        <div className="book-title">Harry Potter and the Sorcerer's Stone</div>
-        <div className="book-authors">J.K. Rowling</div>
+        <div className="book-title">{title}</div>
+        <div className="book-authors">{author}</div>
     </div>
 );
+Book.propTypes = {
+    image: PropTypes.string,
+};
 
 export default Book;

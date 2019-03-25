@@ -1,5 +1,5 @@
 import React from 'react';
-// import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI';
 import Header from './Header.js';
 import AddBookButton from './AddBook';
 import Search from './SearchBook';
@@ -7,7 +7,6 @@ import './App.css';
 import CurrentlyReadingComponent from './CurrentlyReading.js';
 import WantToReadComponent from './WantToRead.js';
 import ReadComponent from './Read';
-import * as BookAPI from './BooksAPI';
 
 class BooksApp extends React.Component {
     state = {
@@ -20,7 +19,7 @@ class BooksApp extends React.Component {
     }
 
     getBooks = () => {
-        BookAPI.getAll().then(books => {
+        BooksAPI.getAll().then(books => {
             this.setState({
                 books,
             });
@@ -33,8 +32,8 @@ class BooksApp extends React.Component {
         }));
     };
 
-    handleChangeShelf = (book, shelf) => {
-        BookAPI.update(book, shelf).then(() => {
+    handleChangeShelf = (selectedBook, updatedShelf) => {
+        BooksAPI.update(selectedBook, updatedShelf).then(() => {
             this.getBooks();
         });
     };

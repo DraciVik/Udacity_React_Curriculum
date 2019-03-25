@@ -11,15 +11,7 @@ import * as BookAPI from './BooksAPI';
 
 class BooksApp extends React.Component {
     state = {
-        /**
-         * TODO: Instead of using this state variable to keep track of which page
-         * we're on, use the URL in the browser's address bar. This will ensure that
-         * users can use the browser's back and forward buttons to navigate between
-         * pages, as well as provide a good URL they can bookmark and share.
-         */
-        currentlyReading: [],
-        wantToRead: [],
-        read: [],
+        books: [],
         showSearchPage: false,
     };
 
@@ -30,9 +22,7 @@ class BooksApp extends React.Component {
     getBooks = () => {
         BookAPI.getAll().then(books => {
             this.setState({
-                currentlyReading: books.filter(book => book.shelf === 'currentlyReading'),
-                wantToRead: books.filter(book => book.shelf === 'wantToRead'),
-                read: books.filter(book => book.shelf === 'read'),
+                books,
             });
         });
     };
@@ -51,24 +41,20 @@ class BooksApp extends React.Component {
 
     render() {
         const { showSearchPage } = this.state;
-        const { currentlyReading } = this.state;
-        const { wantToRead } = this.state;
-        const { read } = this.state;
+        const { books } = this.state;
+
         return (
             <div className="app">
                 {showSearchPage ? (
-                    <Search goToMainPage={this.handleMainPage} />
+                    <Search books={books} goToMainPage={this.handleMainPage} />
                 ) : (
                     <div className="list-books">
                         <Header />
                         <div className="list-books-content">
                             <div>
-                                <CurrentlyReadingComponent
-                                    changeShelf={this.handleChangeShelf}
-                                    currentlyReading={currentlyReading}
-                                />
-                                <WantToReadComponent changeShelf={this.handleChangeShelf} wantToRead={wantToRead} />
-                                <ReadComponent changeShelf={this.handleChangeShelf} read={read} />
+                                <CurrentlyReadingComponent changeShelf={this.handleChangeShelf} books={books} />
+                                <WantToReadComponent changeShelf={this.handleChangeShelf} books={books} />
+                                <ReadComponent changeShelf={this.handleChangeShelf} books={books} />
                             </div>
                         </div>
                         <AddBookButton goToSearch={this.handleMainPage} />

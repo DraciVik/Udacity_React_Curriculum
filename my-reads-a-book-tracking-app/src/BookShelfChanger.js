@@ -31,8 +31,8 @@ class BookShelfChanger extends React.Component {
     }
 }
 BookShelfChanger.propTypes = {
-    changeShelf: PropTypes.func.isRequired,
-    book: PropTypes.object.isRequired,
+    changeShelf: PropTypes.func,
+    book: PropTypes.object,
     books: PropTypes.array,
 };
 

@@ -56,7 +56,11 @@ class BooksApp extends React.Component {
                                 <ReadComponent changeShelf={this.handleChangeShelf} books={books} />
                             </div>
                         </div>
-                        <AddBookButton goToSearch={this.handleMainPage} />
+                        <AddBookButton
+                            books={books}
+                            changeShelf={this.handleChangeShelf}
+                            goToSearch={this.handleMainPage}
+                        />
                     </div>
                 )}
             </div>

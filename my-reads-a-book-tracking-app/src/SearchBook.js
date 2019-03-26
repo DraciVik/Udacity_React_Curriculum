@@ -1,6 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import * as BooksAPI from './BooksAPI';
+import Book from './Book';
 
 class Search extends React.Component {
     state = {
@@ -8,19 +9,20 @@ class Search extends React.Component {
         results: [],
     };
 
-    updateQuery = query => {
-        this.setState({ query: query.trim() });
+    handleQueryChange(event) {
+        const query = event.target.value;
+        this.setState({ query });
+
         this.performSearch(query);
-    };
+    }
 
     performSearch(query) {
         if (query === '' || query === undefined) {
             this.setState({ results: [] });
         }
 
-        // TODO: import all books
         BooksAPI.search(query).then(books => {
-            if (typeof books === Array) {
+            if (books.constructor === Array) {
                 this.setState({ results: books });
             } else {
                 this.setState({ results: [] });
@@ -31,6 +33,19 @@ class Search extends React.Component {
     render() {
         const { goToMainPage } = this.props;
         const { query } = this.state;
+        const { books } = this.props;
+        const { changeShelf } = this.props;
+        const { results } = this.state;
+        let message;
+
+        if (query === '') {
+            message = <h2 style={{ textAlign: 'center' }}>Write one ore more keywords above to start searching</h2>;
+        } else if (results.length === 0) {
+            message = (
+                <h2 style={{ textAlign: 'center' }}>No results found. Try searching under different keywords.</h2>
+            );
+        }
+
         return (
             <div className="search-books">
                 <div className="search-books-bar">
@@ -42,12 +57,26 @@ class Search extends React.Component {
                             type="text"
                             placeholder="Search by title or author"
                             value={query}
-                            onChange={event => this.updateQuery(event.target.value)}
+                            onChange={event => this.handleQueryChange(event)}
                         />
                     </div>
                 </div>
                 <div className="search-books-results">
-                    <ol className="books-grid" />
+                    {message}
+                    <ol className="books-grid">
+                        {results.map(book => (
+                            <li key={book.id}>
+                                <Book
+                                    book={book}
+                                    books={books}
+                                    changeShelf={changeShelf}
+                                    title={book.title}
+                                    author={book.authors}
+                                    image={book.imageLinks.thumbnail}
+                                />
+                            </li>
+                        ))}
+                    </ol>
                 </div>
             </div>
         );
@@ -56,6 +85,8 @@ class Search extends React.Component {
 
 Search.propTypes = {
     goToMainPage: PropTypes.func,
+    books: PropTypes.array,
+    changeShelf: PropTypes.func.isRequired,
 };
 
 export default Search;

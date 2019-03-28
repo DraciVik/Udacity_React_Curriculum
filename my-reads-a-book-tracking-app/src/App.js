@@ -45,7 +45,7 @@ class BooksApp extends React.Component {
         return (
             <div className="app">
                 {showSearchPage ? (
-                    <Search books={books} goToMainPage={this.handleMainPage} />
+                    <Search changeShelf={this.handleChangeShelf} books={books} goToMainPage={this.handleMainPage} />
                 ) : (
                     <div className="list-books">
                         <Header />
@@ -56,11 +56,7 @@ class BooksApp extends React.Component {
                                 <ReadComponent changeShelf={this.handleChangeShelf} books={books} />
                             </div>
                         </div>
-                        <AddBookButton
-                            books={books}
-                            changeShelf={this.handleChangeShelf}
-                            goToSearch={this.handleMainPage}
-                        />
+                        <AddBookButton goToSearch={this.handleMainPage} />
                     </div>
                 )}
             </div>

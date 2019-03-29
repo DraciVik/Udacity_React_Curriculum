@@ -17,7 +17,7 @@ const WantToReadComponent = ({ books, changeShelf }) => (
                                 book={book}
                                 changeShelf={changeShelf}
                                 title={book.title}
-                                author={book.authors[0]}
+                                authors={book.authors}
                                 image={book.imageLinks.thumbnail}
                             />
                         </li>

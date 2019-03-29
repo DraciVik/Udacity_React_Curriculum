@@ -67,11 +67,11 @@ class Search extends React.Component {
                         {results.map(book => (
                             <li key={book.id}>
                                 <Book
-                                    book={book}
                                     books={books}
+                                    book={book}
                                     changeShelf={changeShelf}
                                     title={book.title}
-                                    author={book.authors}
+                                    authors={book.authors}
                                     image={book.imageLinks.thumbnail}
                                 />
                             </li>

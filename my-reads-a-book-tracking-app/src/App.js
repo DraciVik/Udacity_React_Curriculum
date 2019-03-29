@@ -1,4 +1,5 @@
 import React from 'react';
+import { Route } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
 import Header from './Header.js';
 import AddBookButton from './AddBook';
@@ -11,7 +12,6 @@ import ReadComponent from './Read';
 class BooksApp extends React.Component {
     state = {
         books: [],
-        showSearchPage: false,
     };
 
     componentDidMount() {
@@ -26,12 +26,6 @@ class BooksApp extends React.Component {
         });
     };
 
-    handleMainPage = () => {
-        this.setState(prevState => ({
-            showSearchPage: !prevState.showSearchPage,
-        }));
-    };
-
     handleChangeShelf = (selectedBook, updatedShelf) => {
         BooksAPI.update(selectedBook, updatedShelf).then(() => {
             this.getBooks();
@@ -39,26 +33,28 @@ class BooksApp extends React.Component {
     };
 
     render() {
-        const { showSearchPage } = this.state;
         const { books } = this.state;
 
         return (
             <div className="app">
-                {showSearchPage ? (
-                    <Search changeShelf={this.handleChangeShelf} books={books} goToMainPage={this.handleMainPage} />
-                ) : (
-                    <div className="list-books">
-                        <Header />
-                        <div className="list-books-content">
-                            <div>
-                                <CurrentlyReadingComponent changeShelf={this.handleChangeShelf} books={books} />
-                                <WantToReadComponent changeShelf={this.handleChangeShelf} books={books} />
-                                <ReadComponent changeShelf={this.handleChangeShelf} books={books} />
+                <Route
+                    exact
+                    path="/"
+                    render={() => (
+                        <div className="list-books">
+                            <Header />
+                            <div className="list-books-content">
+                                <div>
+                                    <CurrentlyReadingComponent changeShelf={this.handleChangeShelf} books={books} />
+                                    <WantToReadComponent changeShelf={this.handleChangeShelf} books={books} />
+                                    <ReadComponent changeShelf={this.handleChangeShelf} books={books} />
+                                </div>
                             </div>
+                            <AddBookButton />
                         </div>
-                        <AddBookButton goToSearch={this.handleMainPage} />
-                    </div>
-                )}
+                    )}
+                />
+                <Route path="/search" render={() => <Search changeShelf={this.handleChangeShelf} books={books} />} />
             </div>
         );
     }

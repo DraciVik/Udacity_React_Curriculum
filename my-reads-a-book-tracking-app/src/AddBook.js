@@ -1,15 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-const AddBookButton = props => (
+const AddBookButton = () => (
     <div className="open-search">
-        <button onClick={() => props.goToSearch()} type="button">
-            Add a book
-        </button>
+        <Link to="/search">
+            <button type="submit">Add a book</button>
+        </Link>
     </div>
 );
-AddBookButton.propTypes = {
-    goToSearch: PropTypes.func,
-};
 
 export default AddBookButton;

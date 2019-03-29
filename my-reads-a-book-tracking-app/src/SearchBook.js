@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import * as BooksAPI from './BooksAPI';
 import Book from './Book';
@@ -31,7 +32,6 @@ class Search extends React.Component {
     }
 
     render() {
-        const { goToMainPage } = this.props;
         const { query } = this.state;
         const { books } = this.props;
         const { changeShelf } = this.props;
@@ -49,9 +49,9 @@ class Search extends React.Component {
         return (
             <div className="search-books">
                 <div className="search-books-bar">
-                    <button type="button" className="close-search" onClick={() => goToMainPage()}>
+                    <Link to="/" className="close-search">
                         Close
-                    </button>
+                    </Link>
                     <div className="search-books-input-wrapper">
                         <input
                             type="text"
@@ -83,10 +83,6 @@ class Search extends React.Component {
     }
 }
 
-Search.propTypes = {
-    goToMainPage: PropTypes.func,
-    books: PropTypes.array,
-    changeShelf: PropTypes.func.isRequired,
-};
+Search.propTypes = { books: PropTypes.array, changeShelf: PropTypes.func.isRequired };
 
 export default Search;

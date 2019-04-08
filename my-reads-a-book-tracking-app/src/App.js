@@ -2,6 +2,7 @@ import React from 'react';
 // import * as BooksAPI from './BooksAPI'
 import './App.css';
 import Header from './components/Header';
+import AddBookButton from './components/AddBook';
 
 class BooksApp extends React.Component {
         state = {
@@ -21,6 +22,7 @@ class BooksApp extends React.Component {
                                         <div className="search-books">
                                                 <div className="search-books-bar">
                                                         <button
+                                                                type="submit"
                                                                 className="close-search"
                                                                 onClick={() => this.setState({ showSearchPage: false })}
                                                         >
@@ -427,11 +429,9 @@ class BooksApp extends React.Component {
                                                                 </div>
                                                         </div>
                                                 </div>
-                                                <div className="open-search">
-                                                        <button onClick={() => this.setState({ showSearchPage: true })}>
-                                                                Add a book
-                                                        </button>
-                                                </div>
+                                                <AddBookButton
+                                                        onNavigate={() => this.setState({ showSearchPage: true })}
+                                                />
                                         </div>
                                 )}
                         </div>

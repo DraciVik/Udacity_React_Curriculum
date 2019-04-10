@@ -3,7 +3,7 @@ import React from 'react';
 import './App.css';
 import Header from './components/Header';
 import AddBookButton from './components/AddBook';
-import Book from './components/Book';
+import BookShelf from './components/BookShelf';
 
 class BooksApp extends React.Component {
         state = {
@@ -54,52 +54,9 @@ class BooksApp extends React.Component {
                                                 <Header />
                                                 <div className="list-books-content">
                                                         <div>
-                                                                <div className="bookshelf">
-                                                                        <h2 className="bookshelf-title">
-                                                                                Currently Reading
-                                                                        </h2>
-                                                                        <div className="bookshelf-books">
-                                                                                <ol className="books-grid">
-                                                                                        <li>
-                                                                                                <Book />
-                                                                                        </li>
-                                                                                        <li>
-                                                                                                <Book />
-                                                                                        </li>
-                                                                                </ol>
-                                                                        </div>
-                                                                </div>
-                                                                <div className="bookshelf">
-                                                                        <h2 className="bookshelf-title">
-                                                                                Want to Read
-                                                                        </h2>
-                                                                        <div className="bookshelf-books">
-                                                                                <ol className="books-grid">
-                                                                                        <li>
-                                                                                                <Book />
-                                                                                        </li>
-                                                                                        <li>
-                                                                                                <Book />
-                                                                                        </li>
-                                                                                </ol>
-                                                                        </div>
-                                                                </div>
-                                                                <div className="bookshelf">
-                                                                        <h2 className="bookshelf-title">Read</h2>
-                                                                        <div className="bookshelf-books">
-                                                                                <ol className="books-grid">
-                                                                                        <li>
-                                                                                                <Book />
-                                                                                        </li>
-                                                                                        <li>
-                                                                                                <Book />
-                                                                                        </li>
-                                                                                        <li>
-                                                                                                <Book />
-                                                                                        </li>
-                                                                                </ol>
-                                                                        </div>
-                                                                </div>
+                                                                <BookShelf bookShelf="Currently Reading" />
+                                                                <BookShelf bookShelf="Want to read" />
+                                                                <BookShelf bookShelf="Read" />
                                                         </div>
                                                 </div>
                                                 <AddBookButton

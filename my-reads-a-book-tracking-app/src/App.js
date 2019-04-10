@@ -4,6 +4,7 @@ import './App.css';
 import Header from './components/Header';
 import AddBookButton from './components/AddBook';
 import BookShelf from './components/BookShelf';
+import SearchBook from './components/SearchBook';
 
 class BooksApp extends React.Component {
         state = {
@@ -16,39 +17,20 @@ class BooksApp extends React.Component {
                 showSearchPage: false,
         };
 
+        changePage() {
+                const { showSearchPage } = this.state;
+                this.setState({
+                        showSearchPage: !showSearchPage,
+                });
+        }
+
         render() {
                 const { showSearchPage } = this.state;
                 return (
                         <div className="app">
                                 {showSearchPage ? (
-                                        <div className="search-books">
-                                                <div className="search-books-bar">
-                                                        <button
-                                                                type="submit"
-                                                                className="close-search"
-                                                                onClick={() => this.setState({ showSearchPage: false })}
-                                                        >
-                                                                Close
-                                                        </button>
-                                                        <div className="search-books-input-wrapper">
-                                                                {/*
-                  NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                  You can find these search terms here:
-                  https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-                  However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                  you don't find a specific author or title. Every search is limited by search terms.
-                */}
-                                                                <input
-                                                                        type="text"
-                                                                        placeholder="Search by title or author"
-                                                                />
-                                                        </div>
-                                                </div>
-                                                <div className="search-books-results">
-                                                        <ol className="books-grid" />
-                                                </div>
-                                        </div>
+                                        // TODO Fix lifting state up
+                                        <SearchBook changePage={this.changePage} />
                                 ) : (
                                         <div className="list-books">
                                                 <Header />

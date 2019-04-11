@@ -5,6 +5,7 @@ import Header from './components/Header';
 import AddBookButton from './components/AddBook';
 import BookShelf from './components/BookShelf';
 import SearchBook from './components/SearchBook';
+import BookShelfs from './components/BookShelfs';
 
 class BooksApp extends React.Component {
         state = {
@@ -34,13 +35,7 @@ class BooksApp extends React.Component {
                                 ) : (
                                         <div className="list-books">
                                                 <Header />
-                                                <div className="list-books-content">
-                                                        <div>
-                                                                <BookShelf bookShelf="Currently Reading" />
-                                                                <BookShelf bookShelf="Want to read" />
-                                                                <BookShelf bookShelf="Read" />
-                                                        </div>
-                                                </div>
+                                                <BookShelfs />
                                                 <AddBookButton onNavigate={this.changePage} />
                                         </div>
                                 )}

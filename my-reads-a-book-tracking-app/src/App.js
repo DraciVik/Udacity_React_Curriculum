@@ -1,9 +1,8 @@
 import React from 'react';
-// import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI';
 import './App.css';
 import Header from './components/Header';
 import AddBookButton from './components/AddBook';
-import BookShelf from './components/BookShelf';
 import SearchBook from './components/SearchBook';
 import BookShelfs from './components/BookShelfs';
 
@@ -15,8 +14,15 @@ class BooksApp extends React.Component {
                  * users can use the browser's back and forward buttons to navigate between
                  * pages, as well as provide a good URL they can bookmark and share.
                  */
+                books: [],
                 showSearchPage: false,
         };
+
+        componentDidMount() {
+                BooksAPI.getAll().then(books => {
+                        this.setState({ books });
+                });
+        }
 
         changePage = () => {
                 const { showSearchPage } = this.state;

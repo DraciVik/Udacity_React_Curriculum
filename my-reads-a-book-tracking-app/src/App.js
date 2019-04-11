@@ -33,6 +33,7 @@ class BooksApp extends React.Component {
 
         render() {
                 const { showSearchPage } = this.state;
+                const { books } = this.state;
                 return (
                         <div className="app">
                                 {showSearchPage ? (
@@ -41,7 +42,7 @@ class BooksApp extends React.Component {
                                 ) : (
                                         <div className="list-books">
                                                 <Header />
-                                                <BookShelfs />
+                                                <BookShelfs books={books} />
                                                 <AddBookButton onNavigate={this.changePage} />
                                         </div>
                                 )}

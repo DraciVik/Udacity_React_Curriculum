@@ -1,19 +1,11 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 
-function SearchBook({ changePage }) {
+function SearchBook({ onNavigate }) {
         return (
                 <div className="search-books">
                         <div className="search-books-bar">
-                                <button
-                                        type="submit"
-                                        className="close-search"
-                                        // TODO Fix lifting state up
-
-                                        onClick={() => {
-                                                changePage();
-                                        }}
-                                >
+                                <button type="submit" className="close-search" onClick={onNavigate}>
                                         Close
                                 </button>
                                 <div className="search-books-input-wrapper">
@@ -36,7 +28,7 @@ function SearchBook({ changePage }) {
 }
 
 SearchBook.propTypes = {
-        changePage: PropTypes.func,
+        onNavigate: PropTypes.func,
 };
 
 export default SearchBook;

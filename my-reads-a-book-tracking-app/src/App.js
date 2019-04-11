@@ -17,12 +17,12 @@ class BooksApp extends React.Component {
                 showSearchPage: false,
         };
 
-        changePage() {
+        changePage = () => {
                 const { showSearchPage } = this.state;
                 this.setState({
                         showSearchPage: !showSearchPage,
                 });
-        }
+        };
 
         render() {
                 const { showSearchPage } = this.state;
@@ -30,7 +30,7 @@ class BooksApp extends React.Component {
                         <div className="app">
                                 {showSearchPage ? (
                                         // TODO Fix lifting state up
-                                        <SearchBook changePage={this.changePage} />
+                                        <SearchBook onNavigate={this.changePage} />
                                 ) : (
                                         <div className="list-books">
                                                 <Header />
@@ -41,9 +41,7 @@ class BooksApp extends React.Component {
                                                                 <BookShelf bookShelf="Read" />
                                                         </div>
                                                 </div>
-                                                <AddBookButton
-                                                        onNavigate={() => this.setState({ showSearchPage: true })}
-                                                />
+                                                <AddBookButton onNavigate={this.changePage} />
                                         </div>
                                 )}
                         </div>

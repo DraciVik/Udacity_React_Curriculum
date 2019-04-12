@@ -24,6 +24,14 @@ class BooksApp extends React.Component {
                 });
         }
 
+        changeShelf = (book, shelf) => {
+                BooksAPI.update(book, shelf).then(() => {
+                        BooksAPI.getAll().then(books => {
+                                this.setState({ books });
+                        });
+                });
+        };
+
         changePage = () => {
                 const { showSearchPage } = this.state;
                 this.setState({
@@ -42,7 +50,7 @@ class BooksApp extends React.Component {
                                 ) : (
                                         <div className="list-books">
                                                 <Header />
-                                                <BookShelfs books={books} />
+                                                <BookShelfs changeShelf={this.changeShelf} books={books} />
                                                 <AddBookButton onNavigate={this.changePage} />
                                         </div>
                                 )}

@@ -19,23 +19,28 @@ class BooksApp extends React.Component {
         };
 
         componentDidMount() {
+                // Puts all the books in state
                 BooksAPI.getAll().then(books => {
                         this.setState({ books });
                 });
         }
 
-        changeShelf = (book, shelf) => {
-                BooksAPI.update(book, shelf).then(() => {
-                        BooksAPI.getAll().then(books => {
-                                this.setState({ books });
-                        });
-                });
-        };
-
         changePage = () => {
+                // Switches state in order to switch between pager (Temporary before I implement React Router)
                 const { showSearchPage } = this.state;
                 this.setState({
                         showSearchPage: !showSearchPage,
+                });
+        };
+
+        changeShelf = (book, shelf) => {
+                // Updates the shelf depending in the user selection then injects the books into state
+                BooksAPI.update(book, shelf).then(() => {
+                        BooksAPI.getAll().then(books => {
+                                this.setState({
+                                        books,
+                                });
+                        });
                 });
         };
 
@@ -45,7 +50,6 @@ class BooksApp extends React.Component {
                 return (
                         <div className="app">
                                 {showSearchPage ? (
-                                        // TODO Fix lifting state up
                                         <SearchBook onNavigate={this.changePage} />
                                 ) : (
                                         <div className="list-books">

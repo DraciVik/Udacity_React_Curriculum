@@ -14,7 +14,7 @@ function Book({ books, book, changeShelf }) {
                                                 backgroundImage: `url(${book.imageLinks.thumbnail})`,
                                         }}
                                 />
-                                <ShelfChanger changeShelf={changeShelf} book={book} />
+                                <ShelfChanger books={books} changeShelf={changeShelf} book={book} />
                         </div>
                         <div className="book-title">{book.title}</div>
                         <div className="book-authors">

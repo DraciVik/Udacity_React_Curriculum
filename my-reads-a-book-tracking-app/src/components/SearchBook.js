@@ -1,8 +1,35 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
+import * as BooksAPI from '../BooksAPI';
 
 class SearchBook extends React.Component {
+        state = {
+                query: '',
+                loading: false,
+                books: [],
+        };
+
+        updateSearch = query => {
+                this.showLoading();
+                this.setState({ query });
+
+                if (!query) {
+                        this.hideLoading();
+                        this.props.onSearchUpdate(query, []);
+                }
+                this.doSearch();
+        };
+
+        showLoading() {
+                this.setState({ loading: true });
+        }
+
+        hideLoading() {
+                this.setState({ loading: false });
+        }
+
         render() {
+                const { query } = this.state;
                 const { onNavigate } = this.props;
                 return (
                         <div className="search-books">
@@ -11,12 +38,15 @@ class SearchBook extends React.Component {
                                                 Close
                                         </button>
                                         <div className="search-books-input-wrapper">
-                                                <input type="text" placeholder="Search by title or author" />
+                                                <input
+                                                        value={query}
+                                                        onChange={event => this.updateSearch(event.target.value)}
+                                                        type="text"
+                                                        placeholder="Search by title or author"
+                                                />
                                         </div>
                                 </div>
-                                <div className="search-books-results">
-                                        <ol className="books-grid" />
-                                </div>
+                                <div className="search-books-results">{content} </div>
                         </div>
                 );
         }

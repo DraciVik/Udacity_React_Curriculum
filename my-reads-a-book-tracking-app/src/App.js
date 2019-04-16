@@ -50,7 +50,7 @@ class BooksApp extends React.Component {
                 return (
                         <div className="app">
                                 {showSearchPage ? (
-                                        <SearchBook onNavigate={this.changePage} />
+                                        <SearchBook changeShelf={this.changeShelf} onNavigate={this.changePage} />
                                 ) : (
                                         <div className="list-books">
                                                 <Header />

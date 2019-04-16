@@ -18,11 +18,15 @@ function Book({ books, book, changeShelf }) {
                         </div>
                         <div className="book-title">{book.title}</div>
                         <div className="book-authors">
-                                {book.authors.map((author, index) => (
-                                        <p style={{ margin: 0 }} key={index}>
-                                                {author}{' '}
-                                        </p>
-                                ))}
+                                {book.authors ? (
+                                        book.authors.map((author, index) => (
+                                                <p style={{ margin: 0 }} key={index}>
+                                                        {author}{' '}
+                                                </p>
+                                        ))
+                                ) : (
+                                        <div />
+                                )}
                         </div>
                 </div>
         );

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import * as BooksAPI from '../BooksAPI';
@@ -5,32 +6,24 @@ import * as BooksAPI from '../BooksAPI';
 class SearchBook extends React.Component {
         state = {
                 query: '',
-                loading: false,
                 books: [],
         };
 
-        updateSearch = query => {
-                this.showLoading();
+        updateQuery = query => {
                 this.setState({ query });
-
-                if (!query) {
-                        this.hideLoading();
-                        this.props.onSearchUpdate(query, []);
-                }
-                this.doSearch();
         };
 
-        showLoading() {
-                this.setState({ loading: true });
-        }
-
-        hideLoading() {
-                this.setState({ loading: false });
-        }
+        loadBook = query => {
+                this.updateQuery(query);
+                BooksAPI.search(query).then(books => {
+                        this.setState({ books });
+                });
+        };
 
         render() {
-                const { query } = this.state;
+                const { query, books } = this.state;
                 const { onNavigate } = this.props;
+
                 return (
                         <div className="search-books">
                                 <div className="search-books-bar">
@@ -40,13 +33,13 @@ class SearchBook extends React.Component {
                                         <div className="search-books-input-wrapper">
                                                 <input
                                                         value={query}
-                                                        onChange={event => this.updateSearch(event.target.value)}
+                                                        onChange={event => this.loadBook(event.target.value)}
                                                         type="text"
                                                         placeholder="Search by title or author"
                                                 />
                                         </div>
                                 </div>
-                                <div className="search-books-results">{content} </div>
+                                <div className="search-books-results">{console.log(books)}</div>
                         </div>
                 );
         }

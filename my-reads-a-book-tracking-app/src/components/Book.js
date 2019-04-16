@@ -11,7 +11,9 @@ function Book({ books, book, changeShelf }) {
                                         style={{
                                                 width: 128,
                                                 height: 193,
-                                                backgroundImage: `url(${book.imageLinks.thumbnail})`,
+                                                backgroundImage: `url(${
+                                                        book.imageLinks ? book.imageLinks.thumbnail : ''
+                                                })`,
                                         }}
                                 />
                                 <ShelfChanger books={books} changeShelf={changeShelf} book={book} />

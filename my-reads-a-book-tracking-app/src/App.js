@@ -37,9 +37,7 @@ class BooksApp extends React.Component {
                 // Updates the shelf depending in the user selection then injects the books into state
                 BooksAPI.update(book, shelf).then(() => {
                         BooksAPI.getAll().then(books => {
-                                this.setState({
-                                        books,
-                                });
+                                this.setState({ books });
                         });
                 });
         };

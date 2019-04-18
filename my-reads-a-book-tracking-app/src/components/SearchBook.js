@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import React from 'react';
 import { PropTypes } from 'prop-types';
+import { debounce } from 'throttle-debounce';
 import * as BooksAPI from '../BooksAPI';
 import Book from './Book';
 
@@ -13,11 +14,10 @@ class SearchBook extends React.Component {
                 books: [],
         };
 
-        updateQuery = query => {
-                this.setState({ query });
-        };
-
-        loadBook = query => {
+        loadBook = debounce(200, false, query => {
+                // Invokes an Ajax call if the query length is bigger than 0
+                // otherwise it clears the data. It then sets the state to an empty array
+                // if there is no match (error is returned). Otherwise the state is set with the results
                 this.updateQuery(query);
                 if (query) {
                         BooksAPI.search(query).then(books => {
@@ -30,11 +30,21 @@ class SearchBook extends React.Component {
                 } else {
                         this.setState({ books: [] });
                 }
+        });
+
+        updateQuery = query => {
+                this.setState({ query });
+        };
+
+        resetSearch = () => {
+                const { onNavigate } = this.props;
+                onNavigate();
+                this.setState({ query: '', books: [] });
         };
 
         render() {
                 const { query, books } = this.state;
-                const { onNavigate, changeShelf } = this.props;
+                const { changeShelf } = this.props;
                 let showBooks = [];
 
                 if (query) {
@@ -46,7 +56,7 @@ class SearchBook extends React.Component {
                 return (
                         <div className="search-books">
                                 <div className="search-books-bar">
-                                        <button type="submit" className="close-search" onClick={onNavigate}>
+                                        <button type="submit" className="close-search" onClick={this.resetSearch}>
                                                 Close
                                         </button>
                                         <div className="search-books-input-wrapper">

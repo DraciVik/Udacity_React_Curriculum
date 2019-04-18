@@ -4,6 +4,9 @@ import { PropTypes } from 'prop-types';
 import * as BooksAPI from '../BooksAPI';
 import Book from './Book';
 
+// TODO: Fix search doing an error when you cancel the query
+// TODO: Fix books in the search field not updating their shelf when chosen
+
 class SearchBook extends React.Component {
         state = {
                 query: '',
@@ -16,9 +19,17 @@ class SearchBook extends React.Component {
 
         loadBook = query => {
                 this.updateQuery(query);
-                BooksAPI.search(query).then(books => {
-                        this.setState({ books });
-                });
+                if (query) {
+                        BooksAPI.search(query).then(books => {
+                                if (books.error) {
+                                        this.setState({ books: [] });
+                                } else {
+                                        this.setState({ books });
+                                }
+                        });
+                } else {
+                        this.setState({ books: [] });
+                }
         };
 
         render() {
@@ -28,6 +39,8 @@ class SearchBook extends React.Component {
 
                 if (query) {
                         showBooks = books;
+                } else {
+                        showBooks = [];
                 }
 
                 return (

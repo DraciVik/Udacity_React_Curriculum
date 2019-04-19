@@ -34,8 +34,6 @@ class SearchBook extends React.Component {
         };
 
         resetSearch = () => {
-                const { onNavigate } = this.props;
-                onNavigate();
                 this.setState({ query: '', books: [] });
         };
 
@@ -91,7 +89,6 @@ class SearchBook extends React.Component {
 }
 
 SearchBook.propTypes = {
-        onNavigate: PropTypes.func,
         changeShelf: PropTypes.func,
 };
 

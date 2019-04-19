@@ -1,12 +1,9 @@
-/* eslint-disable no-console */
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { debounce } from 'throttle-debounce';
+import { Link } from 'react-router-dom';
 import * as BooksAPI from '../BooksAPI';
 import Book from './Book';
-
-// TODO: Fix search doing an error when you cancel the query
-// TODO: Fix books in the search field not updating their shelf when chosen
 
 class SearchBook extends React.Component {
         state = {
@@ -56,9 +53,15 @@ class SearchBook extends React.Component {
                 return (
                         <div className="search-books">
                                 <div className="search-books-bar">
-                                        <button type="submit" className="close-search" onClick={this.resetSearch}>
-                                                Close
-                                        </button>
+                                        <Link to="/">
+                                                <button
+                                                        type="submit"
+                                                        className="close-search"
+                                                        onClick={this.resetSearch}
+                                                >
+                                                        Close
+                                                </button>
+                                        </Link>
                                         <div className="search-books-input-wrapper">
                                                 <input
                                                         onInput={event => this.updateQuery(event.target.value)}

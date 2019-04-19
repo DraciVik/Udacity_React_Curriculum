@@ -14,11 +14,11 @@ class SearchBook extends React.Component {
                 books: [],
         };
 
-        loadBook = debounce(200, false, query => {
+        loadBook = debounce(300, false, query => {
                 // Invokes an Ajax call if the query length is bigger than 0
                 // otherwise it clears the data. It then sets the state to an empty array
                 // if there is no match (error is returned). Otherwise the state is set with the results
-                this.updateQuery(query);
+
                 if (query) {
                         BooksAPI.search(query).then(books => {
                                 if (books.error) {
@@ -61,6 +61,7 @@ class SearchBook extends React.Component {
                                         </button>
                                         <div className="search-books-input-wrapper">
                                                 <input
+                                                        onInput={event => this.updateQuery(event.target.value)}
                                                         value={query}
                                                         onChange={event => this.loadBook(event.target.value)}
                                                         type="text"

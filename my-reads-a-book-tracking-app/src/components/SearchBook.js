@@ -39,7 +39,7 @@ class SearchBook extends React.Component {
 
         render() {
                 const { query, books } = this.state;
-                const { changeShelf } = this.props;
+                const { changeShelf, myBooks } = this.props;
                 let showBooks = [];
 
                 if (query) {
@@ -47,6 +47,15 @@ class SearchBook extends React.Component {
                 } else {
                         showBooks = [];
                 }
+                const updatedBooks = showBooks.map(book => {
+                        myBooks.map(b => {
+                                if (b.id === book.id) {
+                                        book.shelf = b.shelf;
+                                }
+                                return b;
+                        });
+                        return book;
+                });
 
                 return (
                         <div className="search-books">
@@ -72,7 +81,7 @@ class SearchBook extends React.Component {
                                 </div>
                                 <div className="search-books-results">
                                         <ol className="books-grid">
-                                                {showBooks.map(book => (
+                                                {updatedBooks.map(book => (
                                                         <li key={book.id}>
                                                                 <Book
                                                                         changeShelf={changeShelf}
@@ -90,6 +99,7 @@ class SearchBook extends React.Component {
 
 SearchBook.propTypes = {
         changeShelf: PropTypes.func,
+        myBooks: PropTypes.array,
 };
 
 export default SearchBook;

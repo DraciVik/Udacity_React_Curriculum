@@ -21,10 +21,18 @@ class BooksApp extends React.Component {
 
         changeShelf = (book, shelf) => {
                 // Updates the shelf depending in the user selection then injects the books into state
-                BooksAPI.update(book, shelf).then(() => {
-                        BooksAPI.getAll().then(books => {
-                                this.setState({ books });
-                        });
+                BooksAPI.update(book, shelf);
+
+                const { books } = this.state;
+                let updatedBooks = [];
+                updatedBooks = books.filter(b => b.id !== book.id);
+
+                if (shelf !== 'none') {
+                        book.shelf = shelf;
+                        updatedBooks = updatedBooks.concat(book);
+                }
+                this.setState({
+                        books: updatedBooks,
                 });
         };
 
@@ -34,7 +42,7 @@ class BooksApp extends React.Component {
                         <div className="app">
                                 <Route
                                         path="/searchBooks"
-                                        render={() => <SearchBook changeShelf={this.changeShelf} />}
+                                        render={() => <SearchBook myBooks={books} changeShelf={this.changeShelf} />}
                                 />
                                 <Route
                                         exact

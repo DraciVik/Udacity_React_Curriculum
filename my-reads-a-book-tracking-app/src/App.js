@@ -10,6 +10,7 @@ import BookShelfs from './components/BookShelfs';
 class BooksApp extends React.Component {
         state = {
                 books: [],
+                searchedBooks: [],
         };
 
         componentDidMount() {
@@ -23,17 +24,16 @@ class BooksApp extends React.Component {
                 // Updates the shelf depending in the user selection then injects the books into state
                 BooksAPI.update(book, shelf);
 
-                const { books } = this.state;
-                let updatedBooks = [];
-                updatedBooks = books.filter(b => b.id !== book.id);
-
-                if (shelf !== 'none') {
+                if (shelf === 'none') {
+                        this.setState(prevState => ({
+                                books: prevState.books.filter(b => b.id !== book.id),
+                        }));
+                } else {
                         book.shelf = shelf;
-                        updatedBooks = updatedBooks.concat(book);
+                        this.setState(prevState => ({
+                                books: prevState.books.filter(b => b.id !== book.id).concat(book),
+                        }));
                 }
-                this.setState({
-                        books: updatedBooks,
-                });
         };
 
         render() {

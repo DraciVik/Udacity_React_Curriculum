@@ -2,7 +2,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import ShelfChanger from './ShelfChanger';
 
-function Book({ books, book, changeShelf }) {
+function Book({ book, changeShelf, shelf }) {
         return (
                 <div className="book">
                         <div className="book-top">
@@ -16,7 +16,7 @@ function Book({ books, book, changeShelf }) {
                                                 })`,
                                         }}
                                 />
-                                <ShelfChanger books={books} changeShelf={changeShelf} book={book} />
+                                <ShelfChanger shelf={shelf} changeShelf={changeShelf} book={book} />
                         </div>
                         <div className="book-title">{book.title}</div>
                         <div className="book-authors">
@@ -35,9 +35,9 @@ function Book({ books, book, changeShelf }) {
 }
 
 Book.propTypes = {
-        books: PropTypes.array.isRequired,
         book: PropTypes.object.isRequired,
         changeShelf: PropTypes.func,
+        shelf: PropTypes.string,
 };
 
 export default Book;

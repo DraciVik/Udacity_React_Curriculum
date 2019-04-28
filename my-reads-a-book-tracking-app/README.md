@@ -17,3 +17,18 @@ In order to use this project on your own machine you need to clone the repositor
 # cd (cloned-directory)/my-reads-a-book-tracking-app
 # npm install
 ```
+
+## Having fun with it
+
+To run the project locally type:
+
+```
+npm start
+```
+
+The default directory is http://localhost:3000
+
+Here are a few pictures from it in action:
+
+![Main Page](/img/main-page.png)
+![Search Page](/img/search-page.png)

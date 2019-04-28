@@ -3,8 +3,13 @@ import { PropTypes } from 'prop-types';
 
 class ShelfChanger extends React.Component {
         state = {
-                value: this.props.shelf,
+                value: '',
         };
+
+        componentDidMount() {
+                const { shelf } = this.props;
+                this.setState({ value: shelf });
+        }
 
         handleChange = event => {
                 const { value } = event.target;
@@ -34,6 +39,7 @@ class ShelfChanger extends React.Component {
 ShelfChanger.propTypes = {
         book: PropTypes.object.isRequired,
         changeShelf: PropTypes.func.isRequired,
+        shelf: PropTypes.string,
 };
 
 export default ShelfChanger;
